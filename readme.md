@@ -1,4 +1,4 @@
-# Visão Computacional 2024
+# Visão Computacional 2025
 
 Curso de Visão Computacional ministrado no Departamento de Computação UFSCar. 
 
@@ -50,10 +50,24 @@ Slides e códigos de disciplina PDI ministrada em 2022: [https://www.dropbox.com
 
 ## Configuração do ambiente
 
-`conda install -c pytorch -c nvidia -c conda-forge python pytorch torchvision torchaudio pytorch-cuda=12.1 matplotlib notebook numpy scipy transformers diffusers accelerate python-graphviz ipympl scikit-learn timm plotly`
+Baixar o gerenciador de ambientes miniconda neste link:
 
-As bibliotecas python-graphviz, ipympl, scikit-learn, timm e plotly são opcionais e serão usadas apenas uma única vez em exemplos específicos. Você pode usar os arquivos requirements.txt ou requirements.yml para criar o ambiente. Note que o pacote `-c nvidia pytorch-cuda=12.1` só deve ser instalado se o ambiente tiver acesso a uma GPU.
+https://www.anaconda.com/docs/getting-started/miniconda/install
 
+No terminal, executar os seguintes comandos:
+
+```bash
+# Criação do ambiente chamado vc2025
+conda create --name vc2025 python=3 --channel conda-forge
+conda activate vc2025
+conda config --env --set channel_priority strict
+# Se possuir GPU:
+conda install pytorch-gpu conda-version=12.6 torchvision matplotlib notebook numpy scipy transformers diffusers accelerate python-graphviz ipympl scikit-learn timm plotly
+# Se não possuir GPU:
+conda install pytorch torchvision matplotlib notebook numpy scipy transformers diffusers accelerate python-graphviz ipympl scikit-learn timm plotly
+```
+
+As bibliotecas python-graphviz, ipympl, scikit-learn, timm e plotly são opcionais e serão usadas apenas uma única vez em exemplos específicos. Você pode usar os arquivos requirements.txt ou requirements.yml para criar o ambiente. 
 
 ## GPUs online grátis
 
@@ -92,9 +106,3 @@ https://www.kaggle.com/code/
 * RAM: 32 GB
 * Disco: 73 GB (persistente)
 * 12 horas de execução contínua
-
-<br/>
-
-A imagem abaixo foi gerada utilizando um dos notebooks da disciplina!
-
-![](data/leao.png)
