@@ -116,6 +116,16 @@ def collate_fn(batch):
 
     return batched_imgs, texts
 
+def unormalize(img):
+    """Reverte as transformações para visualização da imagem."""
+    img = img.permute(1, 2, 0)
+    mean = torch.tensor([122.7, 114.6, 100.9])
+    std = torch.tensor([59.2, 58.4, 59.0])
+    img = img*std + mean
+    img = img.to(torch.uint8)
+
+    return img
+
 def get_dataset(root, cap_file, split=0.2, resize_size=224):
 
     ds = OxfordIIITPetCap(root, cap_file)
