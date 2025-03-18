@@ -15,7 +15,7 @@ O curso é dividio em módulos (M01, M02, ...). Cada módulo possui notebooks Ju
 7. Segmentação de imagens naturais;
 8. Autoencoders para remoção de ruído;
 9. Mecanismos de atenção (transformers);
-10. Busca de imagens por linguagem natural;
+10. Modelos de visão e linguagem (VLMs);
 11. Geração de imagens artificiais
 12. Detecção e casamento de pontos salientes
 
@@ -31,6 +31,8 @@ https://udlbook.github.io/udlbook. Principal referência do curso. Possui excele
 * Computer Vision: Algorithms and Applications, Richard Szeliski. https://szeliski.org/Book. De longe a principal referência sobre todas as subáreas de Visão Computacional.
 
 ### Outras referências interessantes
+
+* Aulas gravadas quando este curso foi ministrado em 2024. Infelizmente as gravações começaram a partir do módulo 4 (CNNs): https://www.youtube.com/playlist?list=PLV6nBLHbx0ri7Gh_szfwu3HGWCmIui4UM
 
 * Curso do Justin Johnson da Universidade de Michigan: https://web.eecs.umich.edu/~justincj/teaching/eecs498/WI2022/schedule.html
 
