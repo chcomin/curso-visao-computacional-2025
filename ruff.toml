@@ -1,5 +1,5 @@
 target-version = "py313"
-line-length = 100
+line-length = 90
 
 [lint]
 select = ["E", "F", "UP", "D", "B", "SIM", "I", "C4", "Q", "PL", "NPY", "FURB", "RUF"]
@@ -11,3 +11,9 @@ convention = "numpy"
 
 [lint.per-file-ignores]
 "*.ipynb" = ["D"]
+
+[format]
+quote-style = "single"
+
+[lint.flake8-quotes]
+inline-quotes = "single"

@@ -50,7 +50,7 @@ Slides e códigos de disciplina PDI ministrada em 2022: [https://www.dropbox.com
 
 ## Configuração do ambiente
 
-Baixar o gerenciador de ambientes miniconda neste link:
+Baixar e instalar o gerenciador de ambientes miniconda neste link:
 
 https://www.anaconda.com/docs/getting-started/miniconda/install
 
@@ -62,7 +62,7 @@ conda create --name vc2025 python=3 --channel conda-forge
 conda activate vc2025
 conda config --env --set channel_priority strict
 # Se possuir GPU:
-conda install pytorch-gpu conda-version=12.6 torchvision matplotlib notebook numpy scipy transformers diffusers accelerate python-graphviz ipympl scikit-learn timm plotly
+conda install pytorch-gpu cuda-version=12.6 torchvision matplotlib notebook numpy scipy transformers diffusers accelerate python-graphviz ipympl scikit-learn timm plotly
 # Se não possuir GPU:
 conda install pytorch torchvision matplotlib notebook numpy scipy transformers diffusers accelerate python-graphviz ipympl scikit-learn timm plotly
 ```
