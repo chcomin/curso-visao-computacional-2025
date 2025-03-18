@@ -1,0 +1,9 @@
+_*
+*.zip
+.ipynb_checkpoints/
+data/MNIST/
+data/FashionMNIST/
+data/oxford_pets/
+data/checkpoints/*/
+other/
+.ruff_cache/
