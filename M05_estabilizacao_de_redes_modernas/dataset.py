@@ -40,7 +40,8 @@ class Transform:
             self.color = transforms_pt.ColorJitter(brightness=0.9)
             # Recorta aleatoriamente uma parte da imagem e redimensiona o resultado
             # para o tamanho 28x28
-            self.crop = transforms_pt.RandomResizedCrop(size=28, scale=(0.9, 1.1), ratio= (0.8, 1.2))
+            self.crop = transforms_pt.RandomResizedCrop(
+                size=28, scale=(0.9, 1.1), ratio= (0.8, 1.2))
         else:
             self.color = None
             self.crop = None

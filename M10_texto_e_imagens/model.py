@@ -93,7 +93,10 @@ def contrastive_loss(logits_per_text):
     """Calcula a entropia cruzada para cada linha da matriz, considerando
     que a "classe" correta da linha i é dada pela coluna i.
     """
-    return nn.functional.cross_entropy(logits_per_text, torch.arange(len(logits_per_text), device=logits_per_text.device))
+    loss = nn.functional.cross_entropy(
+        logits_per_text, torch.arange(len(logits_per_text), 
+        device=logits_per_text.device))
+    return loss
 
 def clip_loss(similarity):
     """Queremos que a matriz de similaridade possua valores altos na diagonal,
