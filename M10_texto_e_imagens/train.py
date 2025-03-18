@@ -9,23 +9,24 @@ pois isso é feito dentro do modelo TextEncoder
 em classificar as imagens
 """
 import random
+
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-from torch.utils.data import DataLoader
+from dataset import collate_fn, get_dataset
 from IPython import display
-from dataset import get_dataset, collate_fn
 from model import clip_loss
+from torch.utils.data import DataLoader
+
 
 def seed_all(seed):
-    "Semente para o pytorch, numpy e python."
+    """Semente para o pytorch, numpy e python."""
     torch.manual_seed(seed)
     random.seed(seed) 
     np.random.seed(seed)
 
 def show_log(logger):
     """Plota métricas em um notebook."""
-
     epochs, losses_train, losses_valid, accs = zip(*logger)
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9,3))
@@ -45,10 +46,10 @@ def show_log(logger):
     plt.show()
 
 def train_step(model, dl_train, optim, loss_func, scheduler, device):
-    '''Executa uma época de treinamento. Não podemos utilizar a função do
+    """Executa uma época de treinamento. Não podemos utilizar a função do
     script de treinamento de classificação apenas porque target.to() daria
-    erro pois target não é um tensor.'''
-
+    erro pois target não é um tensor.
+    """
     model.train()
     loss_log = 0.
     for imgs, texts in dl_train:

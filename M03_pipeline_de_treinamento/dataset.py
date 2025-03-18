@@ -1,8 +1,10 @@
 import random
+
 import numpy as np
 import torch
 from torch.utils.data import Dataset
 from torchvision import datasets
+
 
 class Subset(Dataset):
 
@@ -24,7 +26,8 @@ class Subset(Dataset):
 
 def transform_mnist(img, mean=33., std=76.5):
     """Transforma uma imagem do MNIST. A média e desvio padrão utilizados na
-    normalização foram calculados previamente."""
+    normalização foram calculados previamente.
+    """
     # Conversão PIL->numpy
     img = np.array(img, dtype=np.float32)
     # Conversão numpy->pytorch

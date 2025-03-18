@@ -1,7 +1,8 @@
 import torch
 from torch import nn
-from torchvision.models import resnet50, ResNet50_Weights
+from torchvision.models import ResNet50_Weights, resnet50
 from transformers import pipeline
+
 
 class TextEncoder(nn.Module):
 
@@ -10,7 +11,8 @@ class TextEncoder(nn.Module):
 
         # Carrega o pipeline do Hugginface, que inclui um tokenizador e
         # um modelo de classificação de texto
-        pipe = pipeline(model='distilbert/distilbert-base-cased', task='feature-extraction')
+        pipe = pipeline(model='distilbert/distilbert-base-cased', task='feature-extraction',
+                        device='cpu')
         tokenizer = pipe.tokenizer
         model = pipe.model
 
@@ -25,7 +27,7 @@ class TextEncoder(nn.Module):
 
         # Se houver uma lista de textos, é preciso preencher com zeros
         # para deixá-los com mesmo tamanho
-        padding = isinstance(text, (list, tuple))
+        padding = isinstance(text, list | tuple)
 
         tokens = self.tokenizer(text, return_tensors='pt', padding=padding)
 
@@ -52,8 +54,7 @@ class Clip(nn.Module):
         self.logit_scale = nn.Parameter(torch.tensor(temp)) 
 
     def project_images(self, imgs):
-        '''Codifica imagens.'''
-
+        """Codifica imagens."""
         image_embeds = self.image_encoder(imgs)
         image_embeds = self.visual_projection(image_embeds)
         image_embeds = image_embeds / image_embeds.norm(p=2, dim=-1, keepdim=True)
@@ -61,8 +62,7 @@ class Clip(nn.Module):
         return image_embeds
     
     def project_texts(self, texts):
-        '''Codifica textos.'''
-
+        """Codifica textos."""
         text_embeds = self.text_encoder(texts)
         text_embeds = self.text_projection(text_embeds)
         text_embeds = text_embeds / text_embeds.norm(p=2, dim=-1, keepdim=True)
@@ -90,22 +90,23 @@ class Clip(nn.Module):
         return output
      
 def contrastive_loss(logits_per_text):
-    '''Calcula a entropia cruzada para cada linha da matriz, considerando
-    que a "classe" correta da linha i é dada pela coluna i.'''
+    """Calcula a entropia cruzada para cada linha da matriz, considerando
+    que a "classe" correta da linha i é dada pela coluna i.
+    """
     return nn.functional.cross_entropy(logits_per_text, torch.arange(len(logits_per_text), device=logits_per_text.device))
 
 def clip_loss(similarity):
-    '''Queremos que a matriz de similaridade possua valores altos na diagonal,
-    e valores baixos fora da diagonal. Essa loss também é chamada de InfoNCE.'''
-
+    """Queremos que a matriz de similaridade possua valores altos na diagonal,
+    e valores baixos fora da diagonal. Essa loss também é chamada de InfoNCE.
+    """
     caption_loss = contrastive_loss(similarity)
     image_loss = contrastive_loss(similarity.t())
     return (caption_loss + image_loss) / 2.0
 
 def get_model(freeze_text=True):
-    '''Retorna o modelo CLIP. `freeze_text` congela os parâmetros do codificador
-    de texto, que é um modelo bem grande.'''
-
+    """Retorna o modelo CLIP. `freeze_text` congela os parâmetros do codificador
+    de texto, que é um modelo bem grande.
+    """
     image_encoder = resnet50(weights=ResNet50_Weights.DEFAULT)
     img_dim = image_encoder.fc.in_features
     image_encoder.fc = nn.Identity()

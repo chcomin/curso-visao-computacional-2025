@@ -1,4 +1,4 @@
-'''Script para o treinamento de uma rede de segmentação. As únicas
+"""Script para o treinamento de uma rede de segmentação. As únicas
 modificações deste script em relação ao de classificação são:
 
 1. o uso do parâmetro ignore_index=2 na classe CrossEntropyLoss.
@@ -7,23 +7,26 @@ Ele faz com que os pixeis com valor 2 na imagem de rótulos sejam ignorados.
 2. inclusão da função collate_fn no dataloader de validação, pois
 as imagens não possuem o mesmo tamanho. 
 
-3. Modificação da função de acurácia para medir a intersecção sobre a união.'''
-
-import torch
-from torch import nn
-from torch.utils.data import DataLoader
-from dataset import get_dataset, collate_fn
+3. Modificação da função de acurácia para medir a intersecção sobre a união.
+"""
 
 # Gambiarra para importar o script train.py feito anteriormente
 import sys
+
+import torch
+from dataset import collate_fn, get_dataset
+from torch import nn
+from torch.utils.data import DataLoader
+
 sys.path.insert(0, '../')
-import M06_classificacao_de_imagens_naturais.train as train_class 
+import M06_classificacao_de_imagens_naturais.train as train_class
+
 
 @torch.no_grad()
 def iou(scores, targets):
-    '''Função que calcula a Intersecção sobre a União entre o resultado
-    da rede e o rótulo conhecido.'''
-
+    """Função que calcula a Intersecção sobre a União entre o resultado
+    da rede e o rótulo conhecido.
+    """
     # Transforma a predição da rede em índices 0 e 1, e aplica em reshape
     # nos tensores para transformá-los em 1D
     pred = scores.argmax(dim=1).reshape(-1)
@@ -45,13 +48,13 @@ def iou(scores, targets):
 
     # Algumas métricas interessantes para medir a qualidade do resultado
     # Fração de píxeis corretos
-    acc = (tp+tn)/(tp+tn+fp+fn)
+    _ = (tp+tn)/(tp+tn+fp+fn)
     # Intersecção sobre a união (IoU)
     iou = tp/(tp+fp+fn)
     # Precisão
-    prec = tp/(tp+fp)
+    _ = tp/(tp+fp)
     # Revocação
-    rev = tp/(tp+fn)
+    _ = tp/(tp+fn)
 
     # Retorna apenas o iou para não termos que reescrever a função de plotagem
     # dos resultados, que espera um único valor de performance

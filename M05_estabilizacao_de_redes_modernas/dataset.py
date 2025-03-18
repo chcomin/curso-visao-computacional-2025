@@ -1,9 +1,11 @@
 import random
+
 import numpy as np
 import torch
+import torchvision.transforms.v2 as transforms_pt
 from torch.utils.data import Dataset
 from torchvision import datasets
-import torchvision.transforms.v2 as transforms_pt
+
 
 class Subset(Dataset):
     """Cria um subconjunto de um dataset."""
@@ -66,9 +68,9 @@ class Transform:
         return img
 
 def load_fashion_mnist_small(root='../data', n_train=50, n_valid=1000, augment=False):
-    '''Seleciona `n_train`/10 imagens de cada classe do Fashion MNIST e cria um
-    dataset.'''
-
+    """Seleciona `n_train`/10 imagens de cada classe do Fashion MNIST e cria um
+    dataset.
+    """
     ds = datasets.FashionMNIST(root, train=True, download=True)
     train_indices, valid_indices = small_split(ds, n_train=n_train, n_valid=n_valid)
 
@@ -79,13 +81,13 @@ def load_fashion_mnist_small(root='../data', n_train=50, n_valid=1000, augment=F
     return ds_train, ds_valid
 
 def small_split(ds, n_train=50, n_valid=1000):
-    '''Percorre um dataset e seleciona as primeiras `n_train`/10 imagens
+    """Percorre um dataset e seleciona as primeiras `n_train`/10 imagens
     encontradas de cada classe. As imagens não selecionadas são incluídas
-    em um dataset de validação. Assume que o datast possui 10 classes.'''
-
+    em um dataset de validação. Assume que o datast possui 10 classes.
+    """
     nc = n_train//10  # Imagens por classe
     train_indices = []
-    counts = {c:0 for c in range(10)}
+    counts = dict.fromkeys(range(10), 0)
     idx = 0
     while len(train_indices)<n_train:
         _, target = ds[idx]

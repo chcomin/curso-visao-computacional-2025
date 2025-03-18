@@ -1,14 +1,15 @@
 import torch
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import DataLoader, Dataset
+
 
 class MyDataset(Dataset):
-    '''Dataset básico para usar no dataloader'''
+    """Dataset básico para usar no dataloader."""
 
     def __init__(self, vals):
         self.vals = vals
 
     def __getitem__(self, idx):
-        '''Esta função retorna dados sobre os processos'''
+        """Esta função retorna dados sobre os processos."""
         info = torch.utils.data.get_worker_info()
 
         return f'{idx=} processado por worker {info.id}'
@@ -17,7 +18,7 @@ class MyDataset(Dataset):
         return len(self.vals)
     
 def collate_fn(batch):
-    '''collate para não dar erro ao criar o batch'''
+    """Collate para não dar erro ao criar o batch."""
     return batch
     
 def main():

@@ -1,12 +1,12 @@
 import matplotlib.pyplot as plt
-from IPython import display
 import torch
+from IPython import display
 from torch import nn
 from torch.utils.data import DataLoader
 
-def train_step(model, dl_train, optim, loss_func):
-    '''Executa uma época de treinamento.'''
 
+def train_step(model, dl_train, optim, loss_func):
+    """Executa uma época de treinamento."""
     # Coloca o modelo em modo treinamento. Neste notebook não fará diferença,
     # mas algumas camadas (batchnorm, dropout) precisam disso
     model.train()
@@ -33,8 +33,7 @@ def accuracy(scores, targets):
 # Anotador para evitar que gradientes sejam registrados dentro da função
 @torch.no_grad()
 def valid_step(model, dl_valid, loss_func, perf_func):
-    '''Valida o modelo no conjunto de validação.'''
-
+    """Valida o modelo no conjunto de validação."""
     # Coloca o modelo em modo de validação.
     model.eval()
     # Variáveis que armazenarão a loss e a acurácia
@@ -56,8 +55,7 @@ def valid_step(model, dl_valid, loss_func, perf_func):
     return loss_log.item(), perf_log.item()
 
 def show_log(logger):
-    '''Mostra as métricas de treinamento e validação.'''
-
+    """Mostra as métricas de treinamento e validação."""
     epochs, losses_train, losses_valid, accs = zip(*logger)
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7,3))

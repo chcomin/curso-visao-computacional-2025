@@ -1,11 +1,13 @@
 import random
 from pathlib import Path
-from PIL import Image
+
 import numpy as np
 import torch
-from torch.utils.data import Dataset
 import torchvision.transforms.v2 as transf
+from PIL import Image
+from torch.utils.data import Dataset
 from torchvision import tv_tensors
+
 
 class Subset(Dataset):
 
@@ -36,16 +38,15 @@ class OxfordIIITPetSeg(Dataset):
             de rótulos.
             ignore_val: Valor associado a píxeis que serão ignorados (borda).
         """
-
         root = Path(root)
-        images_folder = root / "images"
-        segs_folder = root / "annotations/trimaps"
-        anns_file = root / "annotations/list.txt"
+        images_folder = root / 'images'
+        segs_folder = root / 'annotations/trimaps'
+        anns_file = root / 'annotations/list.txt'
 
         images = []
         segs = []
         for line in open(anns_file).read().splitlines():
-            if line[0]!="#":   # Remove comentários do arquivo
+            if line[0]!='#':   # Remove comentários do arquivo
                 name, class_id, species_id, breed_id = line.strip().split()
                 images.append(images_folder/f'{name}.jpg')
                 segs.append(segs_folder/f'{name}.png')
@@ -58,7 +59,7 @@ class OxfordIIITPetSeg(Dataset):
     def __getitem__(self, idx, apply_transform=True):
 
         # .convert("RGB") para garantir que as imagens são coloridas
-        image = Image.open(self.images[idx]).convert("RGB")
+        image = Image.open(self.images[idx]).convert('RGB')
         target_or = Image.open(self.segs[idx])
 
         # Muitos algoritmos esperam que o fundo trenha índice 0 e o objeto de interesse
@@ -74,7 +75,7 @@ class OxfordIIITPetSeg(Dataset):
 
         # Padronizamos que um dataset retorna uma imagem pillow, então precisamos
         # converter novamente a imagem para esse formato
-        target = Image.fromarray(target_np, mode="L")
+        target = Image.fromarray(target_np, mode='L')
 
         if self.transforms and apply_transform:
             image, target = self.transforms(image, target)

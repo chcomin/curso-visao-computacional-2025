@@ -1,6 +1,7 @@
 import torch
-from torch import nn
 import torch.nn.functional as F
+from torch import nn
+
 
 def conv_norm(in_channels, out_channels, kernel_size=3, act=True):
 
@@ -15,13 +16,14 @@ def conv_norm(in_channels, out_channels, kernel_size=3, act=True):
     return nn.Sequential(*layer)
 
 class DecoderBlock(nn.Module):
-    '''Recebe a ativação do nível anterior do decoder `x_dec` e a ativação do 
+    """Recebe a ativação do nível anterior do decoder `x_dec` e a ativação do
     encoder `x_enc`. É assumido que `x_dec` possui uma resolução espacial
     menor que que `x_enc` e que `x_enc` possui número de canais diferente
     de `x_dec`.
     
     O módulo ajusta a resolução de `x_dec` para ser igual a `x_enc` e o número
-    de canais de `x_enc` para ser igual a `x_dec`.'''
+    de canais de `x_enc` para ser igual a `x_dec`.
+    """
 
     def __init__(self, enc_channels, dec_channels):
         super().__init__()
@@ -30,7 +32,7 @@ class DecoderBlock(nn.Module):
         self.mix = conv_norm(dec_channels, dec_channels)
 
     def forward(self, x_enc, x_dec):
-        x_dec_int = F.interpolate(x_dec, size=x_enc.shape[-2:], mode="nearest")
+        x_dec_int = F.interpolate(x_dec, size=x_enc.shape[-2:], mode='nearest')
         x_enc_ad = self.channel_adjust(x_enc)
         y = x_dec_int + x_enc_ad
         return self.mix(y)
@@ -118,7 +120,7 @@ class EncoderDecoder(nn.Module):
         x = self.decoder(features)
 
         if x.shape[-2:]!=in_shape:
-            x = F.interpolate(x, size=in_shape, mode="nearest")
+            x = F.interpolate(x, size=in_shape, mode='nearest')
 
         # A camada de classificação poderia estar antes da interpolação, o que
         # reduziria o custo computacional mas possivelmente levaria a segmentações

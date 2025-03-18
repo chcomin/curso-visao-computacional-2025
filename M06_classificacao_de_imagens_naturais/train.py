@@ -1,21 +1,22 @@
 import random
+
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
+from dataset import get_dataset
+from IPython import display
 from torch import nn
 from torch.utils.data import DataLoader
-from IPython import display
-from dataset import get_dataset
+
 
 def seed_all(seed):
-    "Semente para o pytorch, numpy e python."
+    """Semente para o pytorch, numpy e python."""
     torch.manual_seed(seed)
     random.seed(seed)
     np.random.seed(seed)
 
 def show_log(logger):
     """Plota métricas em um notebook."""
-
     epochs, losses_train, losses_valid, accs = zip(*logger)
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9,3))
@@ -35,8 +36,7 @@ def show_log(logger):
     plt.show()
 
 def train_step(model, dl_train, optim, loss_func, scheduler, device):
-    '''Executa uma época de treinamento.'''
-
+    """Executa uma época de treinamento."""
     # Coloca o modelo em modo treinamento. Neste notebook não fará diferença,
     # mas algumas camadas (batchnorm, dropout) precisam disso
     model.train()

@@ -1,10 +1,11 @@
 import matplotlib.pyplot as plt
 import torch
 
-def create_image(func, inputs, eps=0.1, grid_resolution=300):
-    """Create an image containing the output of a function for each point 
-    of a grid. Used for visualizing the decision surface of a model."""
 
+def create_image(func, inputs, eps=0.1, grid_resolution=300):
+    """Create an image containing the output of a function for each point
+    of a grid. Used for visualizing the decision surface of a model.
+    """
     x0, x1 = inputs.T
 
     x0_min, x0_max = x0.min() - eps, x0.max() + eps
@@ -38,4 +39,4 @@ def plot_regions(model, inputs, targets, grid_resolution=300, eps=0.5):
     co = ax.pcolormesh(xx0, xx1, response)
     ax.scatter(*inputs[targets==0].T, s=3, c='C0')
     ax.scatter(*inputs[targets==1].T, s=3, c='C1')
-    cbar = fig.colorbar(co, ax=ax, label='P(C=1|X)')
+    fig.colorbar(co, ax=ax, label='P(C=1|X)')

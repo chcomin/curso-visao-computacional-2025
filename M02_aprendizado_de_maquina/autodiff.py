@@ -1,9 +1,11 @@
 from graphviz import Digraph
 
+
 class Value:
-    """ Stores a single scalar value and its gradient. Adapted from an interesting
+    """Stores a single scalar value and its gradient. Adapted from an interesting
     project from Andrej Karpathy:
-    https://github.com/karpathy/micrograd"""
+    https://github.com/karpathy/micrograd
+    """
 
     def __init__(self, data, _children=(), _op=''):
         self.data = data
@@ -75,7 +77,7 @@ class Value:
         return other * self**-1
 
     def __repr__(self):
-        return f"Value(data={self.data}, grad={self.grad})"
+        return f'Value(data={self.data}, grad={self.grad})'
     
 def trace(root):
     nodes, edges = set(), set()
@@ -98,7 +100,9 @@ def draw_dot(root, format='svg', rankdir='LR'):
     dot = Digraph(format=format, graph_attr={'rankdir': rankdir}) #, node_attr={'rankdir': 'TB'})
     
     for n in nodes:
-        dot.node(name=str(id(n)), label = "{ data %.4f | grad %.4f }" % (n.data, n.grad), shape='record')
+        dot.node(name=str(id(n)), 
+                 label = f'{{ data {n.data:.4f} | grad {n.grad:.4f} }}', 
+                 shape='record')
         if n._op:
             dot.node(name=str(id(n)) + n._op, label=n._op)
             dot.edge(str(id(n)) + n._op, str(id(n)))

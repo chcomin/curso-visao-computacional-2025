@@ -1,4 +1,4 @@
-"""script de treinamento de um modelo codificador-decodificador para reconstrução 
+"""script de treinamento de um modelo codificador-decodificador para reconstrução
 de imagens. As diferenças para o scritp de treinamento de classificação são:
 
 1. A função de acurácia é modificada, pois não temos um problema de classificação. 
@@ -13,17 +13,19 @@ A medida Fréchet Inception Distance poderia ser utilizada no treinamento da red
 mas ela não foi utilizada neste script para simplificar o treinamento.
 """
 
-import matplotlib.pyplot as plt
-import torch
-from torch import nn
-from torch.utils.data import DataLoader
-from IPython import display
-from dataset import get_dataset
-
 # Gambiarra para importar o script train.py feito anteriormente
 import sys
+
+import matplotlib.pyplot as plt
+import torch
+from dataset import get_dataset
+from IPython import display
+from torch import nn
+from torch.utils.data import DataLoader
+
 sys.path.insert(0, '../')
-import M06_classificacao_de_imagens_naturais.train as train_class 
+import M06_classificacao_de_imagens_naturais.train as train_class
+
 
 # A acurácia é a própria loss L1 de validação que já está sendo calculada
 # na função de treinamento. Definimos uma função que retorna 0 que será ignorado.
@@ -33,7 +35,6 @@ def accuracy(scores, targets):
 
 def show_log(logger):
     """Plota as losses e também exemplos de imagens de resultado."""
-
     epochs, losses_train, losses_valid, accs, imgs = zip(*logger)
 
     epochs = list(epochs)
@@ -56,7 +57,7 @@ def show_log(logger):
     # Mostra as imagens
     for i, ind in enumerate(inds):
         axs[i+1].imshow(imgs[ind].permute(1,2,0))
-        axs[i+1].set_title(f"epoch={epochs[ind]}")
+        axs[i+1].set_title(f'epoch={epochs[ind]}')
 
     fig.tight_layout()
 

@@ -1,15 +1,16 @@
-"""
-1. `scale` modificado para 0.8 e `resize` para 224, para adicionar contexto
-"""
+"""1. `scale` modificado para 0.8 e `resize` para 224, para adicionar contexto"""
 import random
+
+# Gambiarra para importar as funções de dataset feitas anteriormente
+import sys
+
 import matplotlib.pyplot as plt
 import torch
 import torchvision.transforms.v2 as transf
 
-# Gambiarra para importar as funções de dataset feitas anteriormente
-import sys
 sys.path.insert(0, '../')
-from M06_classificacao_de_imagens_naturais.dataset import OxfordIIITPet, Subset, unormalize
+from M06_classificacao_de_imagens_naturais.dataset import OxfordIIITPet, Subset
+
 
 class OxfordIIITPetCap(OxfordIIITPet):
     """Modifiação da classe OxfordIIITPet para retornar imagens e captions."""
@@ -82,8 +83,8 @@ class TransformsEval:
 
 def wrap_text(text):
     """Função para quebrar o texto em linhas. Usada apenas para visualização
-    dos dados."""
-    
+    dos dados.
+    """
     text_split = text.split()
     for idx in range(len(text_split)):
         if (idx+1)%4==0:
@@ -110,7 +111,6 @@ def show_items(ds):
 
 def collate_fn(batch):
     """Concatena imagens, mas não os textos"""
-
     images, texts = list(zip(*batch))
     batched_imgs = torch.stack(images, 0)
 

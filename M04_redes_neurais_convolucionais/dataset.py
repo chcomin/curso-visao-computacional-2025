@@ -1,8 +1,10 @@
 import random
+
 import numpy as np
 import torch
 from torch.utils.data import Dataset
 from torchvision import datasets
+
 
 class Subset(Dataset):
     """Cria um subconjunto de um dataset."""

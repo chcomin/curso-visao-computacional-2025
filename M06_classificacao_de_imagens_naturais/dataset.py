@@ -1,13 +1,16 @@
 import random
 from pathlib import Path
-from PIL import Image
+
 import torch
-from torch.utils.data import Dataset
 import torchvision.transforms.v2 as transf
+from PIL import Image
+from torch.utils.data import Dataset
+
 
 class Subset(Dataset):
     """Cria um novo dataset a partir de algumas imagens de um dataset
-    de entrada."""
+    de entrada.
+    """
 
     def __init__(self, ds, indices, transform=None):
         """
@@ -16,7 +19,6 @@ class Subset(Dataset):
             indices: lista de índices a serem utilizados no dataset original
             transform: função de transformação dos dados
         """
-
         self.ds = ds
         self.indices = indices
         self.transform = transform
@@ -38,13 +40,13 @@ class OxfordIIITPet(Dataset):
     def __init__(self, root, transforms=None):
 
         root = Path(root)
-        images_folder = root / "images"
-        anns_file = root / "annotations/list.txt"
+        images_folder = root / 'images'
+        anns_file = root / 'annotations/list.txt'
 
         images = []
         labels = []
         for line in open(anns_file).read().splitlines():
-            if line[0]!="#":   # Remove comentários do arquivo
+            if line[0]!='#':   # Remove comentários do arquivo
                 name, class_id, species_id, breed_id = line.strip().split()
                 images.append(images_folder/f'{name}.jpg')
                 # -1 para começar em 0
@@ -58,7 +60,7 @@ class OxfordIIITPet(Dataset):
     def __getitem__(self, idx, apply_transform=True):
 
         # .convert("RGB") para garantir que as imagens são coloridas
-        image = Image.open(self.images[idx]).convert("RGB")
+        image = Image.open(self.images[idx]).convert('RGB')
         target = self.labels[idx]
 
         if self.transforms and apply_transform:
@@ -111,7 +113,6 @@ class TransformsEval:
 
 def unormalize(img):
     """Reverte as transformações para visualização da imagem."""
-
     img = img.permute(1, 2, 0)
     mean = torch.tensor([122.7, 114.6, 100.9])
     std = torch.tensor([59.2, 58.4, 59.0])
@@ -128,7 +129,6 @@ def get_dataset(root, split=0.2, resize_size=224):
         split: fração de dados a utilizar no conjunto de validação
         resize_size: tamanho que as imagens serão redimensionadas
     """
-
     # Ponderação das classes calculada em um dos notebooks
     class_weights = (0.677, 0.323)
 
