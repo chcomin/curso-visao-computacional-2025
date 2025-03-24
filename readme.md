@@ -60,16 +60,17 @@ No terminal, executar os seguintes comandos:
 
 ```bash
 # Criação do ambiente chamado vc2025
-conda create --name vc2025 python=3 --channel conda-forge
+conda create -n vc2025
 conda activate vc2025
+conda config --env --add channels conda-forge
 conda config --env --set channel_priority strict
 # Se possuir GPU:
-conda install pytorch-gpu cuda-version=12.6 torchvision matplotlib notebook numpy scipy transformers diffusers accelerate python-graphviz ipympl scikit-learn timm plotly
+conda install python pytorch-gpu cuda-version=12.6 torchvision matplotlib notebook numpy scipy transformers diffusers accelerate python-graphviz ipympl scikit-learn timm plotly
 # Se não possuir GPU:
-conda install pytorch torchvision matplotlib notebook numpy scipy transformers diffusers accelerate python-graphviz ipympl scikit-learn timm plotly
+conda install python pytorch torchvision matplotlib notebook numpy scipy transformers diffusers accelerate python-graphviz ipympl scikit-learn timm plotly
 ```
 
-As bibliotecas python-graphviz, ipympl, scikit-learn, timm e plotly são opcionais e serão usadas apenas uma única vez em exemplos específicos. Você pode usar os arquivos requirements.txt ou requirements.yml para criar o ambiente. 
+Antes de instalar as bibliotecas, o conda mostra as versões que serão instaladas. Verifique se são versões recentes das bibliotecas. As bibliotecas python-graphviz, ipympl, scikit-learn, timm e plotly são opcionais e serão usadas apenas uma única vez em exemplos específicos. Você pode usar os arquivos requirements.txt ou requirements.yml para criar o ambiente. 
 
 ## GPUs online grátis
 
