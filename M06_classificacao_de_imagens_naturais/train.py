@@ -20,15 +20,15 @@ def show_log(logger):
     epochs, losses_train, losses_valid, accs = zip(*logger)
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9,3))
-    ax1.plot(epochs, losses_train, '-o', ms=2, label='Train loss')
-    ax1.plot(epochs, losses_valid, '-o', ms=2, label='Valid loss')
-    ax1.set_xlabel('Epoch')
-    ax1.set_ylabel('Loss')
+    ax1.plot(epochs, losses_train, "-o", ms=2, label="Train loss")
+    ax1.plot(epochs, losses_valid, "-o", ms=2, label="Valid loss")
+    ax1.set_xlabel("Epoch")
+    ax1.set_ylabel("Loss")
     ax1.set_ylim((0,1.))
     ax1.legend()
-    ax2.plot(epochs, accs, '-o', ms=2)
-    ax2.set_xlabel('Epoch')
-    ax2.set_ylabel('Accuracy')
+    ax2.plot(epochs, accs, "-o", ms=2)
+    ax2.set_xlabel("Epoch")
+    ax2.set_ylabel("Accuracy")
     ax2.set_ylim((0,1.))
     fig.tight_layout()
 
@@ -98,9 +98,9 @@ def train(model, bs, num_epochs, lr, weight_decay=0., resize_size=224, seed=0,
     # Fixa todas as seeds
     seed_all(seed)
     # Usa cuda se disponível
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     # Carrega o dataset
-    ds_train, ds_valid, class_weights = get_dataset('../data/oxford_pets', resize_size=resize_size)
+    ds_train, ds_valid, class_weights = get_dataset("../data/oxford_pets", resize_size=resize_size)
     # Truque para testar o código, fingimos que o dataset possui menos imagens
     #ds_train.indices = ds_train.indices[:5*256]
     model.to(device)
@@ -127,21 +127,21 @@ def train(model, bs, num_epochs, lr, weight_decay=0., resize_size=224, seed=0,
 
         # Dados sobre o estado atual
         checkpoint = {
-            'params':{'bs':bs,'lr':lr,'weight_decay':weight_decay},
-            'model':model.state_dict(),
-            'optim':optim.state_dict(),
-            'sched':sched.state_dict(),
-            'logger':logger
+            "params":{"bs":bs,"lr":lr,"weight_decay":weight_decay},
+            "model":model.state_dict(),
+            "optim":optim.state_dict(),
+            "sched":sched.state_dict(),
+            "logger":logger
         }
 
         # Salva o estado atual
-        torch.save(checkpoint, '../data/checkpoints/M06/checkpoint.pt')
+        torch.save(checkpoint, "../data/checkpoints/M06/checkpoint.pt")
 
         # Melhor modelo encontrado
         if loss_valid<best_loss:
-            torch.save(checkpoint, '../data/checkpoints/M06/best_model.pt')
+            torch.save(checkpoint, "../data/checkpoints/M06/best_model.pt")
             best_loss = loss_valid
 
-    model.to('cpu')
+    model.to("cpu")
 
     return ds_train, ds_valid, logger

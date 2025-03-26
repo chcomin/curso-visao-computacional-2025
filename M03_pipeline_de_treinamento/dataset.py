@@ -39,7 +39,7 @@ def transform_mnist(img, mean=33., std=76.5):
 
     return img
 
-def load_mnist(root='../data', n=1000):
+def load_mnist(root="../data", n=1000):
 
     ds = datasets.MNIST(root, train=True, download=True)
     random.seed(42)

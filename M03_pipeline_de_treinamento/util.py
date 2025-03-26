@@ -14,7 +14,7 @@ def create_image(func, inputs, eps=0.1, grid_resolution=300):
     xx0, xx1 = torch.meshgrid(
         torch.linspace(x0_min, x0_max, grid_resolution),
         torch.linspace(x1_min, x1_max, grid_resolution),
-        indexing='xy'
+        indexing="xy"
     )
 
     data_grid = torch.stack((xx0.reshape(-1), xx1.reshape(-1)), dim=1)
@@ -37,6 +37,6 @@ def plot_regions(model, inputs, targets, grid_resolution=300, eps=0.5):
 
     fig, ax = plt.subplots()
     co = ax.pcolormesh(xx0, xx1, response)
-    ax.scatter(*inputs[targets==0].T, s=3, c='C0')
-    ax.scatter(*inputs[targets==1].T, s=3, c='C1')
-    fig.colorbar(co, ax=ax, label='P(C=1|X)')
+    ax.scatter(*inputs[targets==0].T, s=3, c="C0")
+    ax.scatter(*inputs[targets==1].T, s=3, c="C1")
+    fig.colorbar(co, ax=ax, label="P(C=1|X)")

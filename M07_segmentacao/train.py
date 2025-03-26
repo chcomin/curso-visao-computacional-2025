@@ -18,7 +18,7 @@ from dataset import collate_fn, get_dataset
 from torch import nn
 from torch.utils.data import DataLoader
 
-sys.path.insert(0, '../')
+sys.path.insert(0, "../")
 import M06_classificacao_de_imagens_naturais.train as train_class
 
 
@@ -64,10 +64,10 @@ def train(model, bs_train, bs_valid, num_epochs, lr, weight_decay=0., resize_siz
           num_workers=5):
 
     train_class.seed_all(seed)
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    device = "cuda" if torch.cuda.is_available() else "cpu"
 
     ds_train, ds_valid, class_weights = get_dataset(
-        '../data/oxford_pets', resize_size=resize_size
+        "../data/oxford_pets", resize_size=resize_size
         )
     #ds_train.indices = ds_train.indices[:5*256]
     model.to(device)
@@ -98,22 +98,22 @@ def train(model, bs_train, bs_valid, num_epochs, lr, weight_decay=0., resize_siz
 
         # Dados sobre o estado atual
         checkpoint = {
-            'params':{'bs_train':bs_train,'bs_valid':bs_valid,'lr':lr,
-                      'weight_decay':weight_decay},
-            'model':model.state_dict(),
-            'optim':optim.state_dict(),
-            'sched':sched.state_dict(),
-            'logger':logger
+            "params":{"bs_train":bs_train,"bs_valid":bs_valid,"lr":lr,
+                      "weight_decay":weight_decay},
+            "model":model.state_dict(),
+            "optim":optim.state_dict(),
+            "sched":sched.state_dict(),
+            "logger":logger
         }
 
         # Salva o estado atual
-        torch.save(checkpoint, '../data/checkpoints/M07/checkpoint.pt')
+        torch.save(checkpoint, "../data/checkpoints/M07/checkpoint.pt")
 
         # Melhor modelo encontrado
         if loss_valid<best_loss:
-            torch.save(checkpoint, '../data/checkpoints/M07/best_model.pt')
+            torch.save(checkpoint, "../data/checkpoints/M07/best_model.pt")
             best_loss = loss_valid
 
-    model.to('cpu')
+    model.to("cpu")
 
     return ds_train, ds_valid, logger

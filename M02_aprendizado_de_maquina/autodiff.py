@@ -7,7 +7,7 @@ class Value:
     https://github.com/karpathy/micrograd
     """
 
-    def __init__(self, data, _children=(), _op=''):
+    def __init__(self, data, _children=(), _op=""):
         self.data = data
         self.grad = 0
         # internal variables used for autograd graph construction
@@ -17,7 +17,7 @@ class Value:
 
     def __add__(self, other):
         other = other if isinstance(other, Value) else Value(other)
-        out = Value(self.data + other.data, (self, other), '+')
+        out = Value(self.data + other.data, (self, other), "+")
 
         def _backward():
             self.grad += out.grad
@@ -28,7 +28,7 @@ class Value:
 
     def __mul__(self, other):
         other = other if isinstance(other, Value) else Value(other)
-        out = Value(self.data * other.data, (self, other), '*')
+        out = Value(self.data * other.data, (self, other), "*")
 
         def _backward():
             self.grad += other.data * out.grad
@@ -77,7 +77,7 @@ class Value:
         return other * self**-1
 
     def __repr__(self):
-        return f'Value(data={self.data}, grad={self.grad})'
+        return f"Value(data={self.data}, grad={self.grad})"
     
 def trace(root):
     nodes, edges = set(), set()
@@ -90,19 +90,19 @@ def trace(root):
     build(root)
     return nodes, edges
 
-def draw_dot(root, format='svg', rankdir='LR'):
+def draw_dot(root, format="svg", rankdir="LR"):
     """
     format: png | svg | ...
     rankdir: TB (top to bottom graph) | LR (left to right)
     """
-    assert rankdir in ['LR', 'TB']
+    assert rankdir in ["LR", "TB"]
     nodes, edges = trace(root)
-    dot = Digraph(format=format, graph_attr={'rankdir': rankdir}) #, node_attr={'rankdir': 'TB'})
+    dot = Digraph(format=format, graph_attr={"rankdir": rankdir}) #, node_attr={'rankdir': 'TB'})
     
     for n in nodes:
         dot.node(name=str(id(n)), 
-                 label = f'{{ data {n.data:.4f} | grad {n.grad:.4f} }}', 
-                 shape='record')
+                 label = f"{{ data {n.data:.4f} | grad {n.grad:.4f} }}", 
+                 shape="record")
         if n._op:
             dot.node(name=str(id(n)) + n._op, label=n._op)
             dot.edge(str(id(n)) + n._op, str(id(n)))

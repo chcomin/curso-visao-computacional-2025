@@ -30,15 +30,15 @@ def show_log(logger):
     epochs, losses_train, losses_valid, accs = zip(*logger)
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9,3))
-    ax1.plot(epochs, losses_train, '-o', ms=2, label='Train loss')
-    ax1.plot(epochs, losses_valid, '-o', ms=2, label='Valid loss')
-    ax1.set_xlabel('Epoch')
-    ax1.set_ylabel('Loss')
+    ax1.plot(epochs, losses_train, "-o", ms=2, label="Train loss")
+    ax1.plot(epochs, losses_valid, "-o", ms=2, label="Valid loss")
+    ax1.set_xlabel("Epoch")
+    ax1.set_ylabel("Loss")
     #ax1.set_ylim((0,1.))
     ax1.legend()
-    ax2.plot(epochs, accs, '-o', ms=2)
-    ax2.set_xlabel('Epoch')
-    ax2.set_ylabel('Accuracy')
+    ax2.plot(epochs, accs, "-o", ms=2)
+    ax2.set_xlabel("Epoch")
+    ax2.set_ylabel("Accuracy")
     ax2.set_ylim((0,1.))
     fig.tight_layout()
 
@@ -77,9 +77,9 @@ def zero_shot_accuracy(model, imgs, texts, label_embeds, device):
     # Estimativa da classe correta da imagem baseado no caption
     targets = []
     for text in texts:
-        if 'cat' in text or 'kitten' in text:
+        if "cat" in text or "kitten" in text:
             target = 0
-        elif 'dog' in text or 'puppy' in text:
+        elif "dog" in text or "puppy" in text:
             target = 1
         else:
             target = 2
@@ -107,7 +107,7 @@ def valid_step(model, dl_valid, loss_func, perf_func, device):
 
     # Coloca o modelo em modo de validação. 
     model.eval()
-    label_embeds = model.project_texts(['cat', 'dog']).to(device)
+    label_embeds = model.project_texts(["cat", "dog"]).to(device)
     # Variáveis que armazenarão a loss e a acurácia
     loss_log = 0.
     perf_log = 0.
@@ -133,9 +133,9 @@ def train(model, bs, num_epochs, lr, weight_decay=0., resize_size=224, seed=0,
     # Fixa todas as seeds
     seed_all(seed)
     # Usa cuda se disponível
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    ds_train, ds_valid = get_dataset('../data/oxford_pets', '../data/oxford_pets_captions.txt',
+    ds_train, ds_valid = get_dataset("../data/oxford_pets", "../data/oxford_pets_captions.txt",
                                     resize_size=resize_size)
     model.to(device)
 
@@ -161,22 +161,22 @@ def train(model, bs, num_epochs, lr, weight_decay=0., resize_size=224, seed=0,
 
         # Dados sobre o estado atual
         checkpoint = {
-            'params':{'bs':bs,'lr':lr,'weight_decay':weight_decay},
-            'model':model.state_dict(),
-            'optim':optim.state_dict(),
-            'sched':sched.state_dict(),
-            'logger':logger
+            "params":{"bs":bs,"lr":lr,"weight_decay":weight_decay},
+            "model":model.state_dict(),
+            "optim":optim.state_dict(),
+            "sched":sched.state_dict(),
+            "logger":logger
         }
 
         # Salva o estado atual
-        torch.save(checkpoint, '../data/checkpoints/M10/checkpoint.pt') 
+        torch.save(checkpoint, "../data/checkpoints/M10/checkpoint.pt") 
 
         # Melhor modelo encontrado
         if loss_valid<best_loss:
-            torch.save(checkpoint, '../data/checkpoints/M10/best_model.pt')
+            torch.save(checkpoint, "../data/checkpoints/M10/best_model.pt")
             best_loss = loss_valid             
 
-    model.to('cpu')
+    model.to("cpu")
 
     return ds_train, ds_valid, logger
 

@@ -13,7 +13,7 @@ convention = "numpy"
 "*.ipynb" = ["D"]
 
 [format]
-quote-style = "single"
+quote-style = "double"
 
 [lint.flake8-quotes]
-inline-quotes = "single"
+inline-quotes = "double"

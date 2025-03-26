@@ -63,13 +63,13 @@ def show_log(logger):
     epochs, losses_train, losses_valid, accs = zip(*logger)
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7,3))
-    ax1.plot(epochs, losses_train, label='Train loss')
-    ax1.plot(epochs, losses_valid, label='Valid loss')
-    ax1.set_xlabel('Epoch')
+    ax1.plot(epochs, losses_train, label="Train loss")
+    ax1.plot(epochs, losses_valid, label="Valid loss")
+    ax1.set_xlabel("Epoch")
     ax1.legend()
     ax2.plot(epochs, accs)
-    ax2.set_xlabel('Epoch')
-    ax2.set_ylabel('Accuracy')
+    ax2.set_xlabel("Epoch")
+    ax2.set_ylabel("Accuracy")
     fig.tight_layout()
 
     display.clear_output(wait=True)

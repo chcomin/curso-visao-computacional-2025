@@ -7,7 +7,7 @@ import torch
 import torchvision.transforms.v2 as transf
 from torchvision import tv_tensors
 
-sys.path.insert(0, '../')
+sys.path.insert(0, "../")
 from M06_classificacao_de_imagens_naturais.dataset import OxfordIIITPet
 
 # A classe Subset de classificação não aplica transformação no target, então

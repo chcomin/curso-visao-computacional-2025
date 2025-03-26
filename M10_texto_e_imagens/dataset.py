@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import torch
 import torchvision.transforms.v2 as transf
 
-sys.path.insert(0, '../')
+sys.path.insert(0, "../")
 from M06_classificacao_de_imagens_naturais.dataset import OxfordIIITPet, Subset
 
 
@@ -23,7 +23,7 @@ class OxfordIIITPetCap(OxfordIIITPet):
         text = open(cap_file).read().splitlines()
         cap_dict = {}
         for line in text:
-            file, caption = line.split(',', 1)
+            file, caption = line.split(",", 1)
             cap_dict[file.strip()] = caption.strip()
         
         # Para cada imagem, armazena o respectivo caption
@@ -88,10 +88,10 @@ def wrap_text(text):
     text_split = text.split()
     for idx in range(len(text_split)):
         if (idx+1)%4==0:
-            text_split[idx] += '\n'
+            text_split[idx] += "\n"
         else:
-            text_split[idx] += ' '
-    wrapped_text = ''.join(text_split)
+            text_split[idx] += " "
+    wrapped_text = "".join(text_split)
 
     return wrapped_text
 
@@ -106,7 +106,7 @@ def show_items(ds):
         image, caption = items[idx]
         caption = wrap_text(caption)
         axs[idx].imshow(image.permute(1, 2, 0)/255.)
-        axs[idx].set_title(caption, loc='center', wrap=True)
+        axs[idx].set_title(caption, loc="center", wrap=True)
     fig.tight_layout()
 
 def collate_fn(batch):

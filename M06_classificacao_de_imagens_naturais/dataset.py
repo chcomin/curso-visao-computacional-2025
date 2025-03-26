@@ -40,19 +40,19 @@ class OxfordIIITPet(Dataset):
     def __init__(self, root, transforms=None):
 
         root = Path(root)
-        images_folder = root / 'images'
-        anns_file = root / 'annotations/list.txt'
+        images_folder = root / "images"
+        anns_file = root / "annotations/list.txt"
 
         images = []
         labels = []
         for line in open(anns_file).read().splitlines():
-            if line[0]!='#':   # Remove comentários do arquivo
+            if line[0]!="#":   # Remove comentários do arquivo
                 name, class_id, species_id, breed_id = line.strip().split()
-                images.append(images_folder/f'{name}.jpg')
+                images.append(images_folder/f"{name}.jpg")
                 # -1 para começar em 0
                 labels.append(int(species_id)-1)
 
-        self.classes = ['Cat', 'Dog']
+        self.classes = ["Cat", "Dog"]
         self.images = images
         self.labels = labels
         self.transforms = transforms
@@ -60,7 +60,7 @@ class OxfordIIITPet(Dataset):
     def __getitem__(self, idx, apply_transform=True):
 
         # .convert("RGB") para garantir que as imagens são coloridas
-        image = Image.open(self.images[idx]).convert('RGB')
+        image = Image.open(self.images[idx]).convert("RGB")
         target = self.labels[idx]
 
         if self.transforms and apply_transform:

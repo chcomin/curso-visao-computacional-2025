@@ -23,7 +23,7 @@ from IPython import display
 from torch import nn
 from torch.utils.data import DataLoader
 
-sys.path.insert(0, '../')
+sys.path.insert(0, "../")
 import M06_classificacao_de_imagens_naturais.train as train_class
 
 
@@ -48,16 +48,16 @@ def show_log(logger):
 
     fig, axs = plt.subplots(2, 3, figsize=(12,4))
     axs = axs.reshape(-1)
-    axs[0].plot(epochs, losses_train, '-o', label='Train loss')
-    axs[0].plot(epochs, losses_valid, '-o', label='Valid loss')
-    axs[0].set_xlabel('Epoch')
-    axs[0].set_ylabel('Loss')
+    axs[0].plot(epochs, losses_train, "-o", label="Train loss")
+    axs[0].plot(epochs, losses_valid, "-o", label="Valid loss")
+    axs[0].set_xlabel("Epoch")
+    axs[0].set_ylabel("Loss")
     axs[0].legend()
 
     # Mostra as imagens
     for i, ind in enumerate(inds):
         axs[i+1].imshow(imgs[ind].permute(1,2,0))
-        axs[i+1].set_title(f'epoch={epochs[ind]}')
+        axs[i+1].set_title(f"epoch={epochs[ind]}")
 
     fig.tight_layout()
 
@@ -68,10 +68,10 @@ def train(model, bs_train, bs_valid, num_epochs, lr, weight_decay=0., resize_siz
           num_workers=5):
     
     train_class.seed_all(seed)
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    device = "cuda" if torch.cuda.is_available() else "cpu"
 
     ds_train, ds_valid = get_dataset(
-        '../data/oxford_pets', resize_size=resize_size
+        "../data/oxford_pets", resize_size=resize_size
         )
 
     model.to(device)
@@ -99,29 +99,29 @@ def train(model, bs_train, bs_valid, num_epochs, lr, weight_decay=0., resize_siz
         img = img.to(device)
         with torch.no_grad():
             img_rec = model(img.unsqueeze(0))[0]
-        img_rec = img_rec.to('cpu')
+        img_rec = img_rec.to("cpu")
         logger.append((epoch, loss_train, loss_valid, perf, img_rec))
 
         show_log(logger)
 
         # Dados sobre o estado atual
         checkpoint = {
-            'params':{'bs_train':bs_train,'bs_valid':bs_valid,'lr':lr,
-                      'weight_decay':weight_decay},
-            'model':model.state_dict(),
-            'optim':optim.state_dict(),
-            'sched':sched.state_dict(),
-            'logger':logger
+            "params":{"bs_train":bs_train,"bs_valid":bs_valid,"lr":lr,
+                      "weight_decay":weight_decay},
+            "model":model.state_dict(),
+            "optim":optim.state_dict(),
+            "sched":sched.state_dict(),
+            "logger":logger
         }
 
         # Salva o estado atual
-        torch.save(checkpoint, '../data/checkpoints/M08/checkpoint.pt') 
+        torch.save(checkpoint, "../data/checkpoints/M08/checkpoint.pt") 
 
         # Melhor modelo encontrado
         if loss_valid<best_loss:
-            torch.save(checkpoint, '../data/checkpoints/M08/best_model.pt')
+            torch.save(checkpoint, "../data/checkpoints/M08/best_model.pt")
             best_loss = loss_valid         
 
-    model.to('cpu')
+    model.to("cpu")
 
     return ds_train, ds_valid, logger

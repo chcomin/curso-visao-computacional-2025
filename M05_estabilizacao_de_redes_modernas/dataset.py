@@ -68,7 +68,7 @@ class Transform:
 
         return img
 
-def load_fashion_mnist_small(root='../data', n_train=50, n_valid=1000, augment=False):
+def load_fashion_mnist_small(root="../data", n_train=50, n_valid=1000, augment=False):
     """Seleciona `n_train`/10 imagens de cada classe do Fashion MNIST e cria um
     dataset.
     """
