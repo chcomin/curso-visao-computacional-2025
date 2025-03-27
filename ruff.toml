@@ -4,7 +4,7 @@ line-length = 100
 [lint]
 select = ["E", "F", "UP", "D", "B", "SIM", "I", "C4", "Q", "PL", "NPY", "FURB", "RUF"]
 ignore = ["SIM108", "SIM115", "B905", "B007", "PLR", "PLC0414", "PLW2901", "NPY002", "RUF100",
-          "D100", "D101", "D102", "D103", "D104", "D105", "D205", "D400"]
+          "D100", "D101", "D102", "D103", "D104", "D105", "D202", "D205", "D400"]
 
 [lint.pydocstyle]
 convention = "numpy"
