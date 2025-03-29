@@ -1,0 +1,1 @@
+Este diretório possui os checkpoints dos modelos treinados. Veja [essas instruções](../readme.md) sobre como obter os arquivos.
