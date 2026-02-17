@@ -7,7 +7,7 @@ ignore = ["SIM108", "SIM115", "B905", "B007", "PLR", "PLC0414", "PLW2901", "NPY0
           "D100", "D101", "D102", "D103", "D104", "D105", "D202", "D205", "D400"]
 
 [lint.pydocstyle]
-convention = "numpy"
+convention = "google"
 
 [lint.per-file-ignores]
 "*.ipynb" = ["D"]

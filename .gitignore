@@ -7,3 +7,4 @@ data/oxford_pets/
 data/checkpoints/*/
 other/
 .ruff_cache/
+.vscode/

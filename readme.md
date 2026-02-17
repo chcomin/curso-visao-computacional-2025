@@ -1,4 +1,4 @@
-# Visão Computacional 2025
+# Curso de Visão Computacional
 
 Curso de Visão Computacional ministrado no Departamento de Computação UFSCar. 
 
@@ -59,13 +59,13 @@ https://www.anaconda.com/docs/getting-started/miniconda/install
 No terminal, executar os seguintes comandos:
 
 ```bash
-# Criação do ambiente chamado vc2025
-conda create -n vc2025
-conda activate vc2025
+# Criação do ambiente chamado cursovc
+conda create -n cursovc
+conda activate cursovc
 conda config --env --add channels conda-forge
 conda config --env --set channel_priority strict
 # Se possuir GPU:
-conda install python pytorch-gpu cuda-version=12.6 torchvision matplotlib notebook numpy scipy transformers diffusers accelerate python-graphviz ipympl scikit-learn timm plotly
+conda install python pytorch-gpu torchvision matplotlib notebook numpy scipy transformers diffusers accelerate python-graphviz ipympl scikit-learn timm plotly
 # Se não possuir GPU:
 conda install python pytorch torchvision matplotlib notebook numpy scipy transformers diffusers accelerate python-graphviz ipympl scikit-learn timm plotly
 ```
@@ -74,38 +74,9 @@ Antes de instalar as bibliotecas, o conda mostra as versões que serão instalad
 
 ## GPUs online grátis
 
-A grande maioria dos códigos da disciplina foi planejada para não necessitar de GPUs. Os notebooks que precisam de GPU estão marcados com (GPU) no nome. Os códigos foram testados em um processador Intel Core i5-3230M 2.60GHz com 2 cores e 4 threads e 8 GB de RAM, ou seja, um computador básico. Para os códigos que precisam de GPU, segue abaixo uma lista de serviços em nuvem que possibilitam execução na GPU de graça. As informações foram coletadas em 05/03/2024.
+A grande maioria dos códigos da disciplina foi planejada para não necessitar de GPUs. Os notebooks que precisam de GPU estão marcados com (GPU) no nome. Os códigos foram testados em um processador Intel Core i5-3230M 2.60GHz com 2 cores e 4 threads e 8 GB de RAM, ou seja, um computador básico. Para os códigos que precisam de GPU, segue abaixo uma lista de serviços em nuvem que possibilitam execução na GPU de graça. 
 
-https://colab.research.google.com/
-* GPU: Tesla T4 (16GB)
-* CPU: Intel Xeon 2.30GHz, 1 core 2 threads
-* CPU RAM: 12 GB
-* Disco: 78 GB (não persistente)
-* 12 horas contínuas de execução
-
-<br/>
-
-https://studiolab.sagemaker.aws/
-* GPU: Tesla T4 (16GB)
-* CPU: Intel Xeon Platinum 8259CL CPU 2.50GHz, 2 cores 4 threads
-* CPU RAM: 16 GB
-* Disco: 15 GB (persistente)
-* 4 horas por dias de execução
-
-<br/>
-
-https://lightning.ai/
-* GPU: Tesla T4 (16GB)
-* CPU: Intel Xeon Platinum 8259CL CPU 2.50GHz, 4 cores 8 threads
-* RAM: 16 GB
-* Disco: 416 GB! (persistente)
-* 22 horas de execução por mês
-
-<br/>
-
-https://www.kaggle.com/code/
-* GPU: 2x Tesla T4 ou 1x Tesla P100 (pode escolher, ambas possuem 16GB)
-* CPU: Intel Xeon CPU 2.00GHz, 2 cores 4 threads
-* RAM: 32 GB
-* Disco: 73 GB (persistente)
-* 12 horas de execução contínua
+* https://colab.research.google.com/
+* https://studiolab.sagemaker.aws/
+* https://lightning.ai/
+* https://www.kaggle.com/code/
